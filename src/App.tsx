@@ -42,8 +42,12 @@ export default function App() {
   const [highestReplaysCount, setHighestReplaysCount] = useState<[number, number]>([0, 100])
   const [totalWatchDuration, setTotalWatchDuration] = useState<[number, number]>([0, 600])
 
+  const [totalUsers, setTotalUsers] = useState(1)
+
   useEffect(() => {
     if (!data) return
+
+    setTotalUsers(data.length)
 
     let columns = [...Object.keys(data[0]), 'total_watch_duration', 'highest_replays_count', 'mean_replays_count'].map(key => {
       return {
@@ -233,7 +237,7 @@ export default function App() {
                             </YAxis>
                             <Tooltip
                               label="views"
-                              formatter={(value, name) => `${value} ${name === "users" ? "unique users" : "total views"}`}
+                              formatter={(value, name) => `${value} ${name === "users" ? `(${parseInt(value.toString())/totalUsers}%)` : ""} ${name === "users" ? "unique users" : "total views"}`}
                               labelFormatter={(value, name) => `At ${value} seconds`}
                             />
                             <Area type="monotone" dataKey="users" stroke="#2C514C" fill="#2C514C" />
