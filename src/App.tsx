@@ -3,7 +3,7 @@ import { SetStateAction, useEffect, useRef, useState } from "react";
 import CSVReader from "react-csv-reader";
 import { ThemeProvider } from "./ThemeProvider";
 import "./index.css"
-import { Area, AreaChart, CartesianGrid, Label, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Area, AreaChart, CartesianGrid, Label, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import Hotkeys from 'react-hot-keys';
 import DataTable from 'react-data-table-component';
 import { capitalize, max, mean, sum } from "lodash";
@@ -35,6 +35,7 @@ export default function App() {
   const [tableData, setTableData] = useState<any>(null)
   const [summationGraph, setSummationGraph] = useState<null | any[]>(null)
   const [videoLoaded, setVideoLoaded] = useState(false)
+  const [seekPosition, setSeekPosition] = useState(0)
   const [columns, setColumns] = useState<any>(null)
 
   const [triedDemo, setTriedDemo] = useState(false)
@@ -192,6 +193,10 @@ export default function App() {
                 height={308}
                 preload="auto"
                 onLoadedData={() => setVideoLoaded(true)}
+                onTimeUpdate={(event => {
+                    const currentTime = Math.floor(event.currentTarget.currentTime)
+                    if(currentTime - seekPosition >= 1) setSeekPosition(currentTime)
+                })}
                 src="https://firebasestorage.googleapis.com/v0/b/speare.appspot.com/o/jenni-onboarding-tutorial.mp4?alt=media&token=fbbcff83-e083-4270-8928-1837e6fda57d"
                 controls
               />
@@ -212,6 +217,7 @@ export default function App() {
                             onClick={(nextState, event) => {
                               const payload = nextState.activePayload ? nextState.activePayload[0].payload : null
                               if (!payload || !videoRef.current) return
+                              setSeekPosition(payload.position)
                               videoRef.current.currentTime = payload.position
                             }}
                           >
@@ -242,6 +248,7 @@ export default function App() {
                             />
                             <Area type="monotone" dataKey="users" stroke="#2C514C" fill="#2C514C" />
                             <Area type="monotone" dataKey="sum" stroke="#8884d8" fill="#8884d8" />
+                            <ReferenceLine x={seekPosition}  strokeWidth={2} stroke="black" strokeOpacity={0.6} strokeDasharray="15 10" isFront />
                           </AreaChart>
                         </ResponsiveContainer>
                         <br />
