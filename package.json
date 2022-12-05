@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/plots": "^1.2.2",
     "@emotion/react": "^11.10.5",
     "@mantine/core": "5.8.3",
     "@mantine/hooks": "5.8.3",
+    "@tabler/icons": "^1.115.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
@@ -13,9 +15,17 @@
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
+    "react-csv-reader": "^3.5.2",
+    "react-data-table-component": "^7.5.3",
     "react-dom": "^18.2.0",
+    "react-hot-keys": "^2.7.2",
     "react-scripts": "5.0.1",
+    "recharts": "^2.1.16",
+    "styled-components": "^5.3.6",
+    "table-page-search": "^0.15.0",
     "typescript": "^4.9.3",
     "web-vitals": "^3.1.0"
   },
@@ -43,5 +53,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.191",
+    "@types/react-table": "^7.7.12",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.19",
+    "tailwindcss": "^3.2.4"
   }
 }
