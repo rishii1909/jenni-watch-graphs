@@ -237,7 +237,7 @@ export default function App() {
                             </YAxis>
                             <Tooltip
                               label="views"
-                              formatter={(value, name) => `${value} ${name === "users" ? `(${parseInt(value.toString())/totalUsers}%)` : ""} ${name === "users" ? "unique users" : "total views"}`}
+                              formatter={(value, name) => `${value} ${name === "users" ? `(${Math.floor(parseInt(value.toString())/totalUsers * 100)/100}%)` : ""} ${name === "users" ? "unique users" : "total views"}`}
                               labelFormatter={(value, name) => `At ${value} seconds`}
                             />
                             <Area type="monotone" dataKey="users" stroke="#2C514C" fill="#2C514C" />
