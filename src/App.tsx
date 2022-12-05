@@ -1,14 +1,13 @@
-import { Divider, Loader, Notification, Text, useMantineTheme } from "@mantine/core";
-import { SetStateAction, useEffect, useMemo, useRef, useState } from "react";
+import { Divider, Loader, Notification, Text } from "@mantine/core";
+import { SetStateAction, useEffect, useRef, useState } from "react";
 import CSVReader from "react-csv-reader";
 import { ThemeProvider } from "./ThemeProvider";
 import "./index.css"
 import { Area, AreaChart, CartesianGrid, Label, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import Hotkeys from 'react-hot-keys';
 import DataTable from 'react-data-table-component';
-import { capitalize, List, sum } from "lodash";
+import { capitalize, sum } from "lodash";
 import { IconSquareArrowDown } from "@tabler/icons";
-import moment from "moment";
 
 const papaparseOptions = {
   header: true,
@@ -48,11 +47,11 @@ export default function App() {
         key: key,
         selector: (row: { [x: string]: any; }) => row[key],
         sortable: true,
-        ...(key === 'time' && {
-          format : (row: any) => moment(Date.now() - row.time).format('lll')
-        })
+        // ...(key === 'time' && {
+        //   format : (row: any) => moment(Date.now() - row.time).format('lll')
+        // })
       }
-    }).filter(field => !['watchgraph', 'event_name'].includes(field.key))
+    }).filter(field => !['watchgraph', 'event_name', 'time'].includes(field.key))
 
     console.log(columns)
     setColumns(columns)
