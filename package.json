@@ -2,7 +2,7 @@
   "name": "mantine-cra-template",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://rishii1909.github.io/jenni-watch-graphs/",
+  "homepage": "https://rishii1909.github.io/jenni-watch-graphs",
   "dependencies": {
     "@ant-design/plots": "^1.2.2",
     "@emotion/react": "^11.10.5",
