@@ -1,5 +1,5 @@
 # Site URL
-`https://rishii1909.github.io/jenni-watch-graphs/`
+https://master--moonlit-semifreddo-a84efc.netlify.app
 # Code to scrape Events CSV 
 
 ```
