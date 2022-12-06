@@ -10,7 +10,10 @@ var jInterval = setInterval(() => {
     if(target){
         target.click();
         jcounter++;
-        if (jcounter === jlimit) clearInterval(jInterval)
+        if (jcounter === jlimit){
+            clearInterval(jInterval)
+            alert('All done, you can export CSV now!')
+        }
     }
 }, 100);
 ```
