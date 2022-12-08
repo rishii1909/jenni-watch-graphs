@@ -39,6 +39,7 @@ export default function App() {
   const [columns, setColumns] = useState<any>(null)
 
   const [triedDemo, setTriedDemo] = useState(false)
+  const [tutorialV2, setTutorialV2] = useState(false)
   const [meanReplaysCount, setMeanReplaysCount] = useState<[number, number]>([0, 10])
   const [highestReplaysCount, setHighestReplaysCount] = useState<[number, number]>([0, 100])
   const [totalWatchDuration, setTotalWatchDuration] = useState<[number, number]>([0, 600])
@@ -78,7 +79,7 @@ export default function App() {
   }, [data])
 
   useEffect(() => {
-    if(!customizedData) return
+    if (!customizedData) return
     let filtered = customizedData
 
     filtered = filtered.filter((row: any) => row.tried_demo === triedDemo)
@@ -194,10 +195,10 @@ export default function App() {
                 preload="auto"
                 onLoadedData={() => setVideoLoaded(true)}
                 onTimeUpdate={(event => {
-                    const currentTime = Math.floor(event.currentTarget.currentTime)
-                    if(currentTime - seekPosition >= 1) setSeekPosition(currentTime)
+                  const currentTime = Math.floor(event.currentTarget.currentTime)
+                  if (currentTime - seekPosition >= 1) setSeekPosition(currentTime)
                 })}
-                src="https://firebasestorage.googleapis.com/v0/b/speare.appspot.com/o/jenni-onboarding-tutorial.mp4?alt=media&token=fbbcff83-e083-4270-8928-1837e6fda57d"
+                src={!tutorialV2 ? "https://firebasestorage.googleapis.com/v0/b/speare.appspot.com/o/jenni-onboarding-tutorial.mp4?alt=media&token=fbbcff83-e083-4270-8928-1837e6fda57d" : "https://firebasestorage.googleapis.com/v0/b/speare.appspot.com/o/jenni-onboarding-tutorial-v2.mp4?alt=media&token=9093cf33-556e-42bf-9d00-01cbb28f2de0"}
                 controls
               />
 
@@ -207,6 +208,17 @@ export default function App() {
                     style={{ height: "100%", width: "100%" }}
                     ref={areaRef}
                   >
+
+                    <div className="bg-gray-700 flex  items-center pb-4 pl-4">
+                    <Switch
+                      label="Used V2 video"
+                      checked={tutorialV2}
+                      onChange={() => {
+                        const status = !tutorialV2
+                        setTutorialV2(status)
+                      }}
+                    />
+                    </div>
 
                     {summationGraph &&
                       <>
@@ -243,12 +255,12 @@ export default function App() {
                             </YAxis>
                             <Tooltip
                               label="views"
-                              formatter={(value, name) => `${value} ${name === "users" ? `(${Math.floor((parseInt(value.toString())/totalUsers * 100) * 100)/100}%)` : ""} ${name === "users" ? "unique users" : "total views"}`}
+                              formatter={(value, name) => `${value} ${name === "users" ? `(${Math.floor((parseInt(value.toString()) / totalUsers * 100) * 100) / 100}%)` : ""} ${name === "users" ? "unique users" : "total views"}`}
                               labelFormatter={(value, name) => `At ${value} seconds`}
                             />
                             <Area type="monotone" dataKey="users" stroke="#2C514C" fill="#2C514C" />
                             <Area type="monotone" dataKey="sum" stroke="#8884d8" fill="#8884d8" />
-                            <ReferenceLine x={seekPosition}  strokeWidth={2} stroke="black" strokeOpacity={0.6} strokeDasharray="15 10" isFront />
+                            <ReferenceLine x={seekPosition} strokeWidth={2} stroke="black" strokeOpacity={0.6} strokeDasharray="15 10" isFront />
                           </AreaChart>
                         </ResponsiveContainer>
                         <br />
